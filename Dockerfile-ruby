@@ -1,0 +1,5 @@
+FROM ruby
+WORKDIR /app
+COPY ./ruby_code/* .
+RUN bundle install --jobs=3 --retry=3
+ENTRYPOINT ["bundle", "exec", "rackup". "--host 0.0.0.0"]
