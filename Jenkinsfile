@@ -9,7 +9,7 @@ pipeline {
         IMAGE_TAG = "${env.REPO}:${env.BUILD_ID}"
         HOST = "3.142.208.3"
     }
-    
+    stages { // Missing block added here
         stage('Build Docker Image') {
             steps {
                 script {
@@ -44,5 +44,5 @@ pipeline {
                 }
             }
         }
-    }
+    } // Closing brace for stages
 }
