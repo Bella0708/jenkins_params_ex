@@ -22,7 +22,7 @@ pipeline {
                 script {
                     echo "Публикация Docker образа в Docker Hub..."
                     docker.withRegistry('https://registry-1.docker.io', 'hub_token') {
-                        docker.build("${IMAGE_TAG}").push()
+                        image.push()
                     }
                 }
             }
