@@ -5,7 +5,7 @@ pipeline {
         booleanParam(name: 'RUN_DEPLOY', defaultValue: false, description: 'Выполнять ли деплой?')
     }
     environment {
-        REPO = "your-dockerhub-username/your-image-name"
+        REPO = "zabella/jenkins_params_ex"
         IMAGE_TAG = "${env.REPO}:${env.BUILD_ID}"
     }
     stages {
