@@ -8,12 +8,21 @@ pipeline {
         REPO = "zabella/jenkins_params_ex"
         IMAGE_TAG = "${env.REPO}:${env.BUILD_ID}"
     }
-     stage('Clone Repository') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: "${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins_key', url: git_url]]])
-            }
-        } 
     stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    echo "Клонирование репозитория..."
+                    checkout([$class: 'GitSCM', 
+                        branches: [[name: "${branch}"]], 
+                        doGenerateSubmoduleConfigurations: false, 
+                        extensions: [], 
+                        submoduleCfg: [], 
+                        userRemoteConfigs: [[credentialsId: 'jenkins_key', url: 'git@github.com:Bella0708/jenkins_params_ex.git']]
+                    ])
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
@@ -27,6 +36,7 @@ pipeline {
                 script {
                     echo "Публикация Docker образа в Docker Hub..."
                     docker.withRegistry('https://registry-1.docker.io', 'hub_token') {
+                        def image = docker.build("${IMAGE_TAG}")
                         image.push()
                     }
                 }
