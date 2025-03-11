@@ -7,22 +7,9 @@ pipeline {
     environment {
         REPO = "zabella/jenkins_params_ex"
         IMAGE_TAG = "${env.REPO}:${env.BUILD_ID}"
+        HOST = "3.142.208.3"
     }
-    stages {
-        stage('Clone Repository') {
-            steps {
-                script {
-                    echo "Клонирование репозитория..."
-                    checkout([$class: 'GitSCM', 
-                        branches: [[name: "${branch}"]], 
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: [], 
-                        submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: 'jenkins_key', url: 'git@github.com:Bella0708/jenkins_params_ex.git']]
-                    ])
-                }
-            }
-        }
+    
         stage('Build Docker Image') {
             steps {
                 script {
