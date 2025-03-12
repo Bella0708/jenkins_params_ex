@@ -22,13 +22,11 @@ pipeline {
             steps {
                 script {
                     echo "Публикация Docker образа в Docker Hub..."
-                    docker.withRegistry('https://registry-1.docker.io', 'hub_token') {
-                        def image = docker.build("${IMAGE_TAG}")
-                        image.push()
+                    sh "docker push ${IMAGE_TAG}"
                     }
                 }
             }
-        }
+        
         stage('Deploy to Remote Host') {
             when {
                 expression { return params.RUN_DEPLOY }
