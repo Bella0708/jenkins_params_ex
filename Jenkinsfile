@@ -19,9 +19,13 @@ pipeline {
             }
         }
         stage('Push to Docker Hub') {
+            environment {
+                registry_token = credentials('hub_token')
+            }
             steps {
                 script {
                     echo "Публикация Docker образа в Docker Hub..."
+                    sh "docker login -u zabella -p ${registry_token}"
                     sh "docker push ${IMAGE_TAG}"
                     }
                 }
