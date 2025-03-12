@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Push to Docker Hub') {
             environment {
-                registry_token = credentials('hub_token')
+                registry_token = credentials('docker_hub1')
             }
             steps {
                 script {
